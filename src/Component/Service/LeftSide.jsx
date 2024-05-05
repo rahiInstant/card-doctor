@@ -1,4 +1,6 @@
-const LeftSide = () => {
+import PropTypes from "prop-types";
+
+const LeftSide = ({ data }) => {
   const feature = (title, description) => {
     return (
       <div className="border-t-2 border-[#FF3811] rounded-[10px] bg-[#F3F3F3] p-10">
@@ -40,9 +42,7 @@ const LeftSide = () => {
         src="/public/images/banner/3.jpg"
         alt=""
       />
-      <h1 className="text-[35px]  font-bold mt-10 mb-7">
-        Unique Car Engine Service
-      </h1>
+      <h1 className="text-[35px]  font-bold mt-10 mb-7">{data.title}</h1>
       {paragraph()}
       <div className="mt-7 grid grid-cols-2 mb-7 gap-6">
         {feature(
@@ -89,4 +89,7 @@ const LeftSide = () => {
 };
 
 export default LeftSide;
-//
+
+LeftSide.propTypes = {
+  data: PropTypes.object,
+};

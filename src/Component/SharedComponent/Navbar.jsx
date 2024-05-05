@@ -6,12 +6,14 @@ import { FaPersonHiking } from "react-icons/fa6";
 import { MdLightMode, MdNightlightRound } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
-
+import toast from "react-hot-toast";
+import { FaCarSide } from "react-icons/fa";
 const Navbar = () => {
-  const { user,logOut } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const [open, setOPen] = useState(false);
   const [theme, setTheme] = useState(getItem().theme);
-
+  const successMsg = (msg) => toast.success(msg);
+  const errorMsg = (msg) => toast.error(msg);
   const routes = [
     { path: "/", name: "Home", id: 1 },
     { path: "/add-new-service", name: "Add service", id: 2 },
@@ -46,13 +48,13 @@ const Navbar = () => {
   function handleLogOut() {
     logOut()
       .then(() => {
-        successMsg("Sign in successfully. Redirecting...");
-        setHelmet("Redirecting...");
-        setTimeout(() => {
-          navigate(location?.state ? location.state : "/");
-        }, 2000);
+        successMsg("Log Out successfully.");
       })
-      .catch((error) => {})
+      .catch((error) => {
+        const Msg = error.message;
+        const actualMsg = Msg.slice(Msg.indexOf("/") + 1, Msg.indexOf(")"));
+        errorMsg(actualMsg);
+      });
   }
 
   return (
@@ -66,15 +68,15 @@ const Navbar = () => {
             {open ? <RxCross2 /> : <HiMenuAlt1 />}
           </div>
           <div className="text-3xl font-extrabold flex items-center gap-2 text-emerald-700">
-            <FaPersonHiking className="text-orange-600" />
-            Arohi
+            <FaCarSide  className="text-orange-600" />
+            Car Doctor
           </div>
         </div>
         <NavMiddle
-          // user={user}
+          user={{...user}}
           routes={routes}
           open={open}
-          // handleLogout={handleLogout}
+          handleLogout={handleLogOut}
         ></NavMiddle>
         <div className="flex gap-4  items-center">
           <div
@@ -85,15 +87,18 @@ const Navbar = () => {
           </div>
           <div className="flex gap-5">
             {user ? (
-              <div>
-                <div>
-                  <img src="" alt="" />
+              <div className="flex items-center gap-2">
+                <img
+                  className=" rounded-full w-10 h-10 border-2"
+                  src={user.photoURL}
+                  alt=""
+                />
+                <div
+                  onClick={handleLogOut}
+                  className="border cursor-pointer border-primary py-2 px-4 rounded-md text-lg font-medium hover:bg-primary hover:text-white duration-200"
+                >
+                  Log Out
                 </div>
-                <Link to="/login">
-                  <div className="border border-primary py-2 px-4 rounded-md text-lg font-medium hover:bg-primary hover:text-white duration-200">
-                    Log Out
-                  </div>
-                </Link>
               </div>
             ) : (
               <Link to="/login">

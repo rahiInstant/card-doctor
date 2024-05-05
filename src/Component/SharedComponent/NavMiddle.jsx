@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./NavMiddle.css";
-const NavMiddle = ({ routes, open }) => {
-  // console.log(typeof user)
+const NavMiddle = ({ routes, open, user, handleLogOut }) => {
   return (
     <div
       className={`lg:flex w-[200px] lg:w-auto
@@ -23,10 +22,10 @@ const NavMiddle = ({ routes, open }) => {
           </NavLink>
         );
       })}
-      {/* {user ? (
+      {user ? (
         <div
           id="link-text"
-          onClick={handleLogout}
+          onClick={handleLogOut}
           className="border cursor-pointer lg:hidden  border-orange-900 mt-3 hover:bg-orange-800 hover:text-white duration-150 text-center dark:text-orange-500 text-black  py-1 rounded-lg text-base font-bold"
         >
           Sign out
@@ -40,7 +39,7 @@ const NavMiddle = ({ routes, open }) => {
             Log In
           </div>
         </Link>
-      )} */}
+      )}
     </div>
   );
 };
@@ -48,7 +47,8 @@ const NavMiddle = ({ routes, open }) => {
 NavMiddle.propTypes = {
   routes: PropTypes.array.isRequired,
   open: PropTypes.bool.isRequired,
-  handleLogout: PropTypes.func,
+  handleLogOut: PropTypes.func,
+  user: PropTypes.object,
 };
 
 export default NavMiddle;

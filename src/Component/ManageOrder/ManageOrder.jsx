@@ -49,9 +49,11 @@ const ManageOrder = () => {
       <ServiceBanner />
       <div className="mt-16">
         <table className="  w-full">
-          {row('/images/services/1.jpg')}
-          {row('/images/services/2.jpg')}
-          {row('/images/services/4.jpg')}
+          <tbody>
+            {row("/images/services/1.jpg")}
+            {row("/images/services/2.jpg")}
+            {row("/images/services/4.jpg")}
+          </tbody>
         </table>
       </div>
     </div>

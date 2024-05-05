@@ -40,9 +40,11 @@ const CartDetail = () => {
       <ServiceBanner />
       <div className="mt-16">
         <table className="  w-full">
-          {row("/images/services/5.jpg")}
-          {row("/images/services/6.jpg")}
-          {row("/images/services/4.jpg")}
+          <tbody>
+            {row("/images/services/5.jpg")}
+            {row("/images/services/6.jpg")}
+            {row("/images/services/4.jpg")}
+          </tbody>
         </table>
         <div className="mt-12 flex justify-between text-lg text-[#444444]">
           <h1 className="flex gap-2 items-center">
