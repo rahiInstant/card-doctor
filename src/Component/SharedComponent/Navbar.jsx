@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HiMenuAlt1 } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 import NavMiddle from "./NavMiddle";
 import { FaPersonHiking } from "react-icons/fa6";
 import { MdLightMode, MdNightlightRound } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../auth/AuthContext";
 
 const Navbar = () => {
+  const { user,logOut } = useContext(AuthContext);
   const [open, setOPen] = useState(false);
   const [theme, setTheme] = useState(getItem().theme);
 
@@ -41,6 +43,17 @@ const Navbar = () => {
     setItem(!getItem().theme);
     setTheme(getItem().theme);
   }
+  function handleLogOut() {
+    logOut()
+      .then(() => {
+        successMsg("Sign in successfully. Redirecting...");
+        setHelmet("Redirecting...");
+        setTimeout(() => {
+          navigate(location?.state ? location.state : "/");
+        }, 2000);
+      })
+      .catch((error) => {})
+  }
 
   return (
     <div className="select-none fixed top-0 left-0 w-full z-10 bg-white">
@@ -71,16 +84,24 @@ const Navbar = () => {
             {theme ? <MdLightMode /> : <MdNightlightRound />}
           </div>
           <div className="flex gap-5">
-            <Link to="/login">
-              <div className="border border-primary py-2 px-4 rounded-md text-lg font-medium hover:bg-primary hover:text-white duration-200">
-                Log In
+            {user ? (
+              <div>
+                <div>
+                  <img src="" alt="" />
+                </div>
+                <Link to="/login">
+                  <div className="border border-primary py-2 px-4 rounded-md text-lg font-medium hover:bg-primary hover:text-white duration-200">
+                    Log Out
+                  </div>
+                </Link>
               </div>
-            </Link>
-            <Link to="/sign-up">
-              <div className="border border-primary py-2 px-4 rounded-md text-lg font-medium hover:bg-primary hover:text-white duration-200">
-               Sign Up
-              </div>
-            </Link>
+            ) : (
+              <Link to="/login">
+                <div className="border border-primary py-2 px-4 rounded-md text-lg font-medium hover:bg-primary hover:text-white duration-200">
+                  Log In
+                </div>
+              </Link>
+            )}
           </div>
         </div>
       </nav>
