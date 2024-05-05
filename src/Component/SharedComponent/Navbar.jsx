@@ -4,6 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import NavMiddle from "./NavMiddle";
 import { FaPersonHiking } from "react-icons/fa6";
 import { MdLightMode, MdNightlightRound } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOPen] = useState(false);
@@ -11,11 +12,10 @@ const Navbar = () => {
 
   const routes = [
     { path: "/", name: "Home", id: 1 },
-    { path: "/manage-order", name: "All order", id: 2 },
-    { path: "/add-new-service", name: "Add service", id: 3 },
+    { path: "/add-new-service", name: "Add service", id: 2 },
+    { path: "/manage-order", name: "All order", id: 3 },
     { path: "/cart-details", name: "My order", id: 4 },
   ];
-
 
   useEffect(() => {
     if (!theme) {
@@ -69,6 +69,11 @@ const Navbar = () => {
             className="h-8 w-8 flex justify-center items-center text-lg cursor-pointer bg-slate-300 rounded-full"
           >
             {theme ? <MdLightMode /> : <MdNightlightRound />}
+          </div>
+          <div>
+            <Link to="/login">
+              <div className="">Sign In</div>
+            </Link>
           </div>
         </div>
       </nav>

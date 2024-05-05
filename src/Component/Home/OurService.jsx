@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const OurService = () => {
   const card = (img, title, price) => {
     return (
@@ -30,7 +32,9 @@ const OurService = () => {
         </p>
       </div>
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-        {card("/images/services/1.jpg", "Electrical System", "$20.00")}
+        <Link to="/service-details">
+          {card("/images/services/1.jpg", "Electrical System", "$20.00")}
+        </Link>
         {card("/images/services/2.jpg", "Electrical System", "$20.00")}
         {card("/images/services/2.jpg", "Electrical System", "$20.00")}
         {card("/images/services/4.jpg", "Electrical System", "$20.00")}
