@@ -70,9 +70,16 @@ const Navbar = () => {
           >
             {theme ? <MdLightMode /> : <MdNightlightRound />}
           </div>
-          <div>
+          <div className="flex gap-5">
             <Link to="/login">
-              <div className="">Sign In</div>
+              <div className="border border-primary py-2 px-4 rounded-md text-lg font-medium hover:bg-primary hover:text-white duration-200">
+                Log In
+              </div>
+            </Link>
+            <Link to="/sign-up">
+              <div className="border border-primary py-2 px-4 rounded-md text-lg font-medium hover:bg-primary hover:text-white duration-200">
+               Sign Up
+              </div>
             </Link>
           </div>
         </div>
