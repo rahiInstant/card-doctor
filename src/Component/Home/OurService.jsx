@@ -6,15 +6,15 @@ const OurService = () => {
   // const [service, setService] = useState([]);
   const { data, isPending } = useQuery({
     queryKey: ["service"],
-    queryFn: () => {
-      const result = axios.get("http://localhost:8080/service");
-      return result;
-    },
+    queryFn: async() => {
+      const result = await axios.get("http://localhost:8080/service");
+      return result.data;
+    }, 
   });
   if (isPending) {
-    return "loading...";
+    return <p>Loading...</p>;
   }
-  const service = data.data;
+  // console.log(data,isPending)
 
   // const card = (img, title, price) => {
   //   return (
@@ -51,9 +51,9 @@ const OurService = () => {
         </p>
       </div>
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-        {service.map((item, idx) => {
+        {data?.map((item, idx) => {
           return (
-            <div key={idx} className="border p-6 rounded-[10px]">
+            <div key={idx} className="border p-6 rounded-[10px] ">
               <div className="w-full h-[200px]">
                 <img
                   className="w-full h-full rounded-[10px]"

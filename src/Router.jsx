@@ -9,6 +9,7 @@ import ErrorPage from "./Component/404/ErrorPage";
 import CartDetail from "./Component/CartDetail/CartDetail";
 import ManageOrder from "./Component/ManageOrder/ManageOrder";
 import Home from "./Component/Home/Home";
+import Private from "./Private";
 
 const router = createBrowserRouter([
   {
@@ -23,12 +24,17 @@ const router = createBrowserRouter([
       {
         path: "/service-details/:id",
         element: <ServiceDetail></ServiceDetail>,
-        loader: ({ params }) =>
-          fetch(`http://localhost:8080/specific/${params.id}`),
+        // loader: ({ params }) =>
+        //   fetch(`http://localhost:8080/specific/${params.id}`),
       },
       {
-        path: "/check-out",
-        element: <CheckOut></CheckOut>,
+        path: "/check-out/:id",
+        element: (
+          <Private>
+            <CheckOut></CheckOut>
+          </Private>
+        ),
+        loader: () => fetch(``),
       },
       {
         path: "/add-new-service",
@@ -44,7 +50,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/cart-details",
-        element: <CartDetail></CartDetail>,
+        element: (
+          <Private>
+            <CartDetail></CartDetail>
+          </Private>
+        ),
       },
       {
         path: "/manage-order",

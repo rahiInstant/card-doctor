@@ -1,15 +1,5 @@
 import PropTypes from "prop-types";
-
 const LeftSide = ({ data }) => {
-  const feature = (title, description) => {
-    return (
-      <div className="border-t-2 border-[#FF3811] rounded-[10px] bg-[#F3F3F3] p-10">
-        <h1 className="text-xl font-bold text-[#444444]">{title}</h1>
-        <p className="mt-2">{description}</p>
-      </div>
-    );
-  };
-
   const step = (num, textNum, shortDescription) => {
     return (
       <div className="border p-[35px] rounded-[10px] flex text-center items-center flex-col">
@@ -24,49 +14,29 @@ const LeftSide = ({ data }) => {
     );
   };
 
-  const paragraph = (para) => {
-    return (
-      <p className="leading-[30px]  text-[#737373] text-justify">
-        There are many variations of passages of Lorem Ipsum available, but the
-        majority have suffered alteration in some form, by injected humour, or
-        randomised words which don't look even slightly believable. If you are
-        going to use a passage of Lorem Ipsum, you need to be sure there isn't
-        anything embarrassing hidden in the middle of text.
-      </p>
-    );
-  };
   return (
     <div className="col-span-2">
-      <img
-        className="w-full h-[400px] rounded-[10px]"
-        src="/public/images/banner/3.jpg"
-        alt=""
-      />
+      <img className="w-full h-[400px] rounded-[10px]" src={data.img} alt="" />
       <h1 className="text-[35px]  font-bold mt-10 mb-7">{data.title}</h1>
-      {paragraph()}
+      <div className="text-justify">{data.description}</div>
       <div className="mt-7 grid grid-cols-2 mb-7 gap-6">
-        {feature(
-          "Instant Car Services",
-          "It uses a dictionary of over 200 Latin words, combined with a model sentence structures."
-        )}
-        {feature(
-          "24/7 Quality Service",
-          "It uses a dictionary of over 200 Latin words, combined with a model sentence structures."
-        )}
-        {feature(
-          "Easy Customer Service",
-          "It uses a dictionary of over 200 Latin words, combined with a model sentence structures."
-        )}
-        {feature(
-          "Quality Cost Service",
-          "It uses a dictionary of over 200 Latin words, combined with a model sentence structures."
-        )}
+        {data.facility.map((item, idx) => {
+          return (
+            <div
+              key={idx}
+              className="border-t-2 border-[#FF3811] rounded-[10px] bg-[#F3F3F3] p-10"
+            >
+              <h1 className="text-xl font-bold text-[#444444]">{item.name}</h1>
+              <p className="mt-2">{item.details}</p>
+            </div>
+          );
+        })}
       </div>
-      {paragraph()}
+      <div className="text-justify">{data.description}</div>
       <h1 className="text-[35px] font-bold mt-10 mb-7">
         3 Simple Steps to Process
       </h1>
-      {paragraph()}
+      <div className="text-justify">{data.description}</div>
       <div className="grid grid-cols-3 mt-7 gap-6">
         {step("01", "Step One", "It uses a dictionary of over 200 .")}
         {step("02", "Step two", "It uses a dictionary of over 200 .")}

@@ -2,14 +2,16 @@ import { useContext, useState } from "react";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 import { FaGoogle, FaLinkedinIn } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
 
 const Login = () => {
   const { logIn, googleSignIn, facebookSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
   const successMsg = (msg) => toast.success(msg);
   const errorMsg = (msg) => toast.error(msg);
   const [helmet, setHelmet] = useState("Arohi | Log in");
@@ -20,12 +22,22 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     logIn(email, password)
-      .then(() => {
+      .then((result) => {
         successMsg("Sign in successfully. Redirecting...");
-        setHelmet("Redirecting...");
-        setTimeout(() => {
-          navigate(location?.state ? location.state : "/");
-        }, 2000);
+        // setHelmet("Redirecting...");
+        // setTimeout(() => {
+        //   navigate(location?.state ? location.state : "/");
+        // }, 2000);
+        const loggedInUser = result.user;
+        console.log(loggedInUser);
+        const userEmail = { email: loggedInUser.email };
+        axios.post('http://localhost:8080/jwt', userEmail, {withCredentials:true})
+          .then(res => {
+            if(res.data.success) {
+              navigate(location?.state ? location.state : "/");
+            }
+            // console.log(res.data)
+          })
       })
       .catch((error) => {
         const Msg = error.message;
@@ -64,7 +76,7 @@ const Login = () => {
         const Msg = error.message;
         const actualMsg = Msg.slice(Msg.indexOf("/") + 1, Msg.indexOf(")"));
         errorMsg(actualMsg);
-      })
+      });
   }
 
   const inputField = (label, placeholder, name, type = "text") => {

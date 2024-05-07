@@ -17,6 +17,9 @@ export default {
         primary: "#FF3811",
         secondary: "#737373",
       },
+      padding:{
+        z:'25px'
+      }
     },
   },
 };

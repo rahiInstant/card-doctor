@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const RightSide = () => {
+const RightSide = ({ data }) => {
   const service = (serviceName) => {
     return (
       <div className="p-[18px] rounded-[5px] bg-white flex justify-between">
@@ -62,8 +63,8 @@ const RightSide = () => {
           </div>
         </div>
       </div>
-      <h1 className="text-[35px] font-bold my-7">Price $250.00</h1>
-      <Link to={"/check-out"}>
+      <h1 className="text-[35px] font-bold my-7">Price ${data.price}</h1>
+      <Link to={`/check-out/${data._id}`}>
         <div className="bg-primary text-lg font-semibold text-white w-full rounded-[5px] py-4 text-center">
           Proceed Checkout
         </div>
@@ -73,3 +74,7 @@ const RightSide = () => {
 };
 
 export default RightSide;
+
+RightSide.propTypes = {
+  data: PropTypes.object,
+};

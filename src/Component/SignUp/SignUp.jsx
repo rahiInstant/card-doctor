@@ -2,8 +2,11 @@ import { updateCurrentUser, updateProfile } from "firebase/auth";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import auth from "../auth/firebase.config";
+import { useContext, useState } from "react";
+import toast from "react-hot-toast";
+import { AuthContext } from "../auth/AuthContext";
 
 const SignUp = () => {
   const { createUser, googleSignIn, facebookSignIn } = useContext(AuthContext);
@@ -109,15 +112,17 @@ const SignUp = () => {
           onSubmit={handleFormSubmit}
           className="flex flex-col gap-7 w-full"
         >
-          {inputField("Name", "Your name", "name")}
-          {inputField("Email", "Your email", "email")}
-          {inputField("Password", "********", "password")}
+          {inputField("Name", "Your name", "name", "text")}
+          {inputField("Email", "Your email", "email", "email")}
+          {inputField("Password", "********", "password", "password")}
 
-          <input
+          <button
             type="submit"
             value="Submit"
             className="bg-primary text-lg font-semibold text-white w-full rounded-[5px] py-4 text-center"
-          />
+          >
+            Submit
+          </button>
         </form>
         <h3 className="my-[30px] text-lg font-medium text-center ">
           Or Sign Up with
