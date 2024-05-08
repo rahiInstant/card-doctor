@@ -12,12 +12,15 @@ import {
 } from "firebase/auth";
 import auth from "./firebase.config";
 import axios from "axios";
+import useAxiosSecure from "../CustomHooks/useAxiosSecure";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState([]);
   const [loading, setLoading] = useState(true);
   const googleProvider = new GoogleAuthProvider();
   const facebookProvider = new FacebookAuthProvider();
+  const axiosSecure = useAxiosSecure();
+
   //   const twitterProvider = new TwitterAuthProvider();
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -26,21 +29,27 @@ const AuthProvider = ({ children }) => {
       setUser(currentUser);
       setLoading(false);
       if (currentUser) {
-        axios
-          .post(
-            "http://localhost:8080/jwt",
-            { email: userEmail },
-            { withCredentials: true }
-          )
+        axiosSecure
+          .post("/jwt", { email: userEmail }, { withCredentials: true })
           .then((res) => console.log(res.data));
+        // axios
+        //   .post(
+        //     "http://localhost:8080/jwt",
+        //     { email: userEmail },
+        //     { withCredentials: true }
+        //   )
+        //   .then((res) => console.log(res.data));
       } else {
-        axios
-          .post(
-            "http://localhost:8080/logout",
-            { email: userEmail },
-            { withCredentials: true }
-          )
+        axiosSecure
+          .post("/logout", { email: userEmail }, { withCredentials: true })
           .then((res) => console.log(res.data));
+        // axios
+        //   .post(
+        //     "http://localhost:8080/logout",
+        //     { email: userEmail },
+        //     { withCredentials: true }
+        //   )
+        //   .then((res) => console.log(res.data));
       }
     });
     return () => {

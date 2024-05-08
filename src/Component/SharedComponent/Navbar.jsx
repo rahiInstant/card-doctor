@@ -6,7 +6,7 @@ import { MdLightMode, MdNightlightRound } from "react-icons/md";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FaCarSide } from "react-icons/fa";
-import useAuth from "../CustomHooks/Auth";
+import useAuth from "../CustomHooks/useAuth";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();

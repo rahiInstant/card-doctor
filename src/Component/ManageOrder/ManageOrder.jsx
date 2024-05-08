@@ -4,21 +4,32 @@ import { BsArrow90DegLeft } from "react-icons/bs";
 import { ImBin } from "react-icons/im";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import useAxiosSecure from "../CustomHooks/useAxiosSecure";
 
 const ManageOrder = () => {
   const [order, setOrder] = useState([]);
+  const axiosSecure = useAxiosSecure();
+
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/user-order",{withCredentials:true})
+    axiosSecure
+      .get("/user-order", { withCredentials: true })
       .then((res) => setOrder(res.data));
-  }, []);
+    // axios
+    //   .get("http://localhost:8080/user-order")
+    //   .then((res) => setOrder(res.data));
+  }, [axiosSecure]);
 
   function handleOrderStatus(e, id) {
-    axios
-      .patch(`http://localhost:8080/update-status?id=${id}`, {
+    axiosSecure
+      .patch(`/update-status?id=${id}`, {
         status: e.target.value,
       })
       .then(() => "");
+    // axios
+    //   .patch(`http://localhost:8080/update-status?id=${id}`, {
+    //     status: e.target.value,
+    //   })
+    //   .then(() => "");
   }
 
   // const status = (disable, currenStatus, options = [], id) => {

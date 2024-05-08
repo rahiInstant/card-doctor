@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import auth from "../auth/firebase.config";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useAuth from "../CustomHooks/Auth";
+import useAuth from "../CustomHooks/useAuth";
 
 const SignUp = () => {
   const { createUser, googleSignIn, facebookSignIn } = useAuth();

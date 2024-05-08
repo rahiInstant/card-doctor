@@ -1,15 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../CustomHooks/useAxiosSecure";
 
 const OurService = () => {
   // const [service, setService] = useState([]);
+  const axiosSecure = useAxiosSecure();
+
   const { data, isPending } = useQuery({
     queryKey: ["service"],
-    queryFn: async() => {
-      const result = await axios.get("http://localhost:8080/service");
+    queryFn: async () => {
+      const result = await axiosSecure.get("http://localhost:8080/service");
       return result.data;
-    }, 
+    },
   });
   if (isPending) {
     return <p>Loading...</p>;

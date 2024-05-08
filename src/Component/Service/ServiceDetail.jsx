@@ -4,15 +4,18 @@ import RightSide from "./RightSide";
 import ServiceBanner from "./ServiceBanner";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import useAxiosSecure from "../CustomHooks/useAxiosSecure";
 
 const ServiceDetail = () => {
   // const data = useLoaderData()
   const params = useParams();
+  const axiosSecure = useAxiosSecure();
+
   // console.log(params)
   const { data, isPending } = useQuery({
     queryKey: ["particular"],
     queryFn: async () => {
-      const result = await axios.get(`http://localhost:8080/particular/${params.id}`);
+      const result = await axiosSecure.get(`/particular/${params.id}`);
       return result.data;
     },
   });
@@ -20,8 +23,8 @@ const ServiceDetail = () => {
   if (isPending) {
     return "Loading...";
   }
-// console.log(data)
-  
+  // console.log(data)
+
   return (
     <div>
       <ServiceBanner />

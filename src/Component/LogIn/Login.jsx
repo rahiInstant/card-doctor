@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
-import useAuth from "../CustomHooks/Auth";
+import useAuth from "../CustomHooks/useAuth";
 
 const Login = () => {
   const { logIn, googleSignIn, facebookSignIn } = useAuth();
@@ -27,7 +27,6 @@ const Login = () => {
         // setTimeout(() => {
         //   navigate(location?.state ? location.state : "/");
         // }, 1000);
-
       })
       .catch((error) => {
         const Msg = error.message;

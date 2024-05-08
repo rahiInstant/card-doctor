@@ -4,17 +4,20 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { AuthContext } from "../auth/AuthContext";
+import useAxiosSecure from "../CustomHooks/useAxiosSecure";
 
 const CheckOut = () => {
   const { user } = useContext(AuthContext);
   const params = useParams();
+  const axiosSecure = useAxiosSecure();
   // console.log(params);
   const { data, isPending } = useQuery({
     queryKey: ["particular"],
     queryFn: async () => {
-      const result = await axios.get(
-        `http://localhost:8080/particular/${params.id}`
-      );
+      const result = await axiosSecure.get(`/particular/${params.id}`);
+      // axios.get(
+      //   `http://localhost:8080/particular/${params.id}`
+      // );
       return result.data;
     },
   });
@@ -40,9 +43,10 @@ const CheckOut = () => {
       status: "ordered",
     };
     // console.log(userInfo);
-    axios
-      .post("http://localhost:8080/check-out", userInfo)
-      .then(() => form.reset());
+    axiosSecure.post("/check-out", userInfo).then(() => form.reset());
+    // axios
+    //   .post("http://localhost:8080/check-out", userInfo)
+    //   .then(() => form.reset());
   }
 
   const inputField = (

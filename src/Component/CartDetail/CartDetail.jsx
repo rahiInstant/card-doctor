@@ -5,25 +5,33 @@ import { ImBin } from "react-icons/im";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../auth/AuthContext";
 import axios from "axios";
+import useAxiosSecure from "../CustomHooks/useAxiosSecure";
 const CartDetail = () => {
   const { user } = useContext(AuthContext);
   const [order, setOrder] = useState([]);
+  const axiosSecure = useAxiosSecure();
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/user-order?email=${user.email}`,{withCredentials:true})
+    axiosSecure
+      .get(`/user-order?email=${user.email}`, { withCredentials: true })
       .then((res) => setOrder(res.data));
-  }, [user]);
+    // axios
+    //   .get(`http://localhost:8080`)
+  }, [user, axiosSecure]);
   function handleDeleteBtn(id) {
-    fetch(`http://localhost:8080/user-order?id=${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const remaining = order.filter((item) => item._id !== id);
-        setOrder(remaining);
-        console.log(data);
-      });
-    console.log(id);
+    axiosSecure.delete(`/user-order?id=${id}`).then(() => {
+      const remaining = order.filter((item) => item._id !== id);
+      setOrder(remaining);
+    });
+    // fetch(`http://localhost:8080/user-order?id=${id}`, {
+    //   method: "DELETE",
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     const remaining = order.filter((item) => item._id !== id);
+    //     setOrder(remaining);
+    //     console.log(data);
+    //   });
+    // console.log(id);
   }
 
   return (
