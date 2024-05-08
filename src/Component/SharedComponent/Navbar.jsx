@@ -1,15 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { HiMenuAlt1 } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 import NavMiddle from "./NavMiddle";
-import { FaPersonHiking } from "react-icons/fa6";
 import { MdLightMode, MdNightlightRound } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../auth/AuthContext";
 import toast from "react-hot-toast";
 import { FaCarSide } from "react-icons/fa";
+import useAuth from "../CustomHooks/Auth";
+
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut } = useAuth();
   const [open, setOPen] = useState(false);
   const [theme, setTheme] = useState(getItem().theme);
   const successMsg = (msg) => toast.success(msg);

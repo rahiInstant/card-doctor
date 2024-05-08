@@ -1,14 +1,14 @@
-import {  updateProfile } from "firebase/auth";
+import { updateProfile } from "firebase/auth";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../auth/firebase.config";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
-import { AuthContext } from "../auth/AuthContext";
+import useAuth from "../CustomHooks/Auth";
 
 const SignUp = () => {
-  const { createUser, googleSignIn, facebookSignIn } = useContext(AuthContext);
+  const { createUser, googleSignIn, facebookSignIn } = useAuth();
   const navigate = useNavigate();
   const successMsg = (msg) => toast.success(msg);
   const errorMsg = (msg) => toast.error(msg);

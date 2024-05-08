@@ -1,13 +1,14 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../auth/AuthContext";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
+import useAuth from "../CustomHooks/Auth";
 
 const Login = () => {
-  const { logIn, googleSignIn, facebookSignIn } = useContext(AuthContext);
+  const { logIn, googleSignIn, facebookSignIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const successMsg = (msg) => toast.success(msg);
@@ -22,10 +23,11 @@ const Login = () => {
     logIn(email, password)
       .then(() => {
         successMsg("Sign in successfully. Redirecting...");
-        setHelmet("Redirecting...");
-        setTimeout(() => {
-          navigate(location?.state ? location.state : "/");
-        }, 1000);
+        // setHelmet("Redirecting...");
+        // setTimeout(() => {
+        //   navigate(location?.state ? location.state : "/");
+        // }, 1000);
+
       })
       .catch((error) => {
         const Msg = error.message;

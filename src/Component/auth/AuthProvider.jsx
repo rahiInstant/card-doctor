@@ -21,18 +21,32 @@ const AuthProvider = ({ children }) => {
   //   const twitterProvider = new TwitterAuthProvider();
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const userEmail = currentUser?.email || user?.email;
+      console.log("user mail", userEmail);
       setUser(currentUser);
       setLoading(false);
       if (currentUser) {
         axios
-          .post("http://localhost:8080/jwt", { email: currentUser.email })
+          .post(
+            "http://localhost:8080/jwt",
+            { email: userEmail },
+            { withCredentials: true }
+          )
+          .then((res) => console.log(res.data));
+      } else {
+        axios
+          .post(
+            "http://localhost:8080/logout",
+            { email: userEmail },
+            { withCredentials: true }
+          )
           .then((res) => console.log(res.data));
       }
     });
     return () => {
       unSubscribe();
     };
-  }, []);
+  }, [user]);
   console.log(user);
 
   function createUser(email, pass) {

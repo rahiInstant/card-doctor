@@ -8,10 +8,9 @@ import axios from "axios";
 const CartDetail = () => {
   const { user } = useContext(AuthContext);
   const [order, setOrder] = useState([]);
-  console.log(user.email);
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/user-order?email=${user.email}`)
+      .get(`http://localhost:8080/user-order?email=${user.email}`,{withCredentials:true})
       .then((res) => setOrder(res.data));
   }, [user]);
   function handleDeleteBtn(id) {
