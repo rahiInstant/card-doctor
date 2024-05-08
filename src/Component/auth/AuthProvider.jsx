@@ -11,6 +11,7 @@ import {
   signOut,
 } from "firebase/auth";
 import auth from "./firebase.config";
+import axios from "axios";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState([]);
@@ -22,12 +23,17 @@ const AuthProvider = ({ children }) => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+      if (currentUser) {
+        axios
+          .post("http://localhost:8080/jwt", { email: currentUser.email })
+          .then((res) => console.log(res.data));
+      }
     });
     return () => {
       unSubscribe();
     };
   }, []);
-  // console.log(user)
+  console.log(user);
 
   function createUser(email, pass) {
     return createUserWithEmailAndPassword(auth, email, pass);

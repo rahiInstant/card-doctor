@@ -8,23 +8,23 @@ import axios from "axios";
 const CartDetail = () => {
   const { user } = useContext(AuthContext);
   const [order, setOrder] = useState([]);
+  console.log(user.email);
   useEffect(() => {
     axios
       .get(`http://localhost:8080/user-order?email=${user.email}`)
       .then((res) => setOrder(res.data));
   }, [user]);
-  // console.log(order);
   function handleDeleteBtn(id) {
     fetch(`http://localhost:8080/user-order?id=${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
       .then((data) => {
-        const remaining = order.filter(item => item._id !==id)
-        setOrder(remaining)
-        console.log(data)
+        const remaining = order.filter((item) => item._id !== id);
+        setOrder(remaining);
+        console.log(data);
       });
-    console.log(id)
+    console.log(id);
   }
 
   return (
@@ -38,7 +38,7 @@ const CartDetail = () => {
                 <tr key={idx} className="*:p-4">
                   <td className="w-14">
                     <div
-                      onClick={() =>handleDeleteBtn(item._id)}
+                      onClick={() => handleDeleteBtn(item._id)}
                       className=" cursor-pointer w-8 h-8 bg-[#444444] rounded-full flex justify-center items-center text-white"
                     >
                       <RxCross1 />

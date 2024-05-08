@@ -9,7 +9,7 @@ const ManageOrder = () => {
   const [order, setOrder] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/user-order", {withCredentials:true})
+      .get("http://localhost:8080/user-order",{withCredentials:true})
       .then((res) => setOrder(res.data));
   }, []);
 

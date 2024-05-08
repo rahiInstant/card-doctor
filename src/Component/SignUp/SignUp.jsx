@@ -1,6 +1,5 @@
-import { updateCurrentUser, updateProfile } from "firebase/auth";
+import {  updateProfile } from "firebase/auth";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
-import { FaLinkedinIn } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../auth/firebase.config";

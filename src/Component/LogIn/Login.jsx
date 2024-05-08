@@ -1,12 +1,10 @@
 import { useContext, useState } from "react";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
-import { FaGoogle, FaLinkedinIn } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
-import axios from "axios";
 
 const Login = () => {
   const { logIn, googleSignIn, facebookSignIn } = useContext(AuthContext);
@@ -22,22 +20,12 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     logIn(email, password)
-      .then((result) => {
+      .then(() => {
         successMsg("Sign in successfully. Redirecting...");
-        // setHelmet("Redirecting...");
-        // setTimeout(() => {
-        //   navigate(location?.state ? location.state : "/");
-        // }, 2000);
-        const loggedInUser = result.user;
-        console.log(loggedInUser);
-        const userEmail = { email: loggedInUser.email };
-        axios.post('http://localhost:8080/jwt', userEmail, {withCredentials:true})
-          .then(res => {
-            if(res.data.success) {
-              navigate(location?.state ? location.state : "/");
-            }
-            // console.log(res.data)
-          })
+        setHelmet("Redirecting...");
+        setTimeout(() => {
+          navigate(location?.state ? location.state : "/");
+        }, 1000);
       })
       .catch((error) => {
         const Msg = error.message;
@@ -54,7 +42,7 @@ const Login = () => {
         setHelmet("Redirecting...");
         setTimeout(() => {
           navigate(location?.state ? location.state : "/");
-        }, 2000);
+        }, 1000);
       })
       .catch((error) => {
         const Msg = error.message;
