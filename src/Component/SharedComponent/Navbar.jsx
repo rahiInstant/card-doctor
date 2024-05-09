@@ -21,6 +21,9 @@ const Navbar = () => {
     { path: "/cart-details", name: "My order", id: 4 },
   ];
 
+  console.log('from navbar',useAuth())
+
+
   useEffect(() => {
     if (!theme) {
       document.documentElement.classList.add("dark");

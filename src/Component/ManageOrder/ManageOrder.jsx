@@ -13,7 +13,7 @@ const ManageOrder = () => {
   useEffect(() => {
     axiosSecure
       .get("/user-order", { withCredentials: true })
-      .then((res) => setOrder(res.data));
+      .then((res) => setOrder(res?.data));
     // axios
     //   .get("http://localhost:8080/user-order")
     //   .then((res) => setOrder(res.data));
@@ -63,7 +63,7 @@ const ManageOrder = () => {
       <div className="mt-16">
         <table className="  w-full">
           <tbody>
-            {order.map((item, idx) => {
+            {order?.map((item, idx) => {
               return (
                 <tr key={idx} className="*:p-4">
                   <td className="w-14">

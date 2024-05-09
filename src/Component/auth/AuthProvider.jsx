@@ -55,7 +55,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       unSubscribe();
     };
-  }, [user]);
+  }, [user,axiosSecure]);
   console.log(user);
 
   function createUser(email, pass) {
