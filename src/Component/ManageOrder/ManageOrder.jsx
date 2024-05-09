@@ -1,9 +1,6 @@
 import { RxCross1 } from "react-icons/rx";
 import ServiceBanner from "./ServiceBanner";
-import { BsArrow90DegLeft } from "react-icons/bs";
-import { ImBin } from "react-icons/im";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import useAxiosSecure from "../CustomHooks/useAxiosSecure";
 
 const ManageOrder = () => {
@@ -12,11 +9,8 @@ const ManageOrder = () => {
 
   useEffect(() => {
     axiosSecure
-      .get("/user-order", { withCredentials: true })
+      .get("/user-order")
       .then((res) => setOrder(res?.data));
-    // axios
-    //   .get("http://localhost:8080/user-order")
-    //   .then((res) => setOrder(res.data));
   }, [axiosSecure]);
 
   function handleOrderStatus(e, id) {
@@ -25,37 +19,9 @@ const ManageOrder = () => {
         status: e.target.value,
       })
       .then(() => "");
-    // axios
-    //   .patch(`http://localhost:8080/update-status?id=${id}`, {
-    //     status: e.target.value,
-    //   })
-    //   .then(() => "");
   }
 
-  // const status = (disable, currenStatus, options = [], id) => {
-  //   return (
-  //     <select
-  //       name=""
-  //       id=""
-  //       disabled={disable}
-  //       onChange={(e) => handleOrderStatus(e, id)}
-  //       className="py-2 px-5 w-fit rounded-md border border-green-800 text-xl font-semibold"
-  //     >
-  //       <option value="" className="hidden">
-  //         {currenStatus}
-  //       </option>
-  //       {options.map((item, idx) => {
-  //         return (
-  //           <option key={idx} value={item}>
-  //             {item}
-  //           </option>
-  //         );
-  //       })}
-  //       {/* <option value="confirm">confirm</option>
-  //       <option value="delivery">delivery</option> */}
-  //     </select>
-  //   );
-  // };
+
 
   return (
     <div className="mt-[90px]">

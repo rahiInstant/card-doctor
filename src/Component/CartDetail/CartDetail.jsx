@@ -4,7 +4,6 @@ import { BsArrow90DegLeft } from "react-icons/bs";
 import { ImBin } from "react-icons/im";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../auth/AuthContext";
-import axios from "axios";
 import useAxiosSecure from "../CustomHooks/useAxiosSecure";
 const CartDetail = () => {
   const { user } = useContext(AuthContext);
@@ -12,26 +11,14 @@ const CartDetail = () => {
   const axiosSecure = useAxiosSecure();
   useEffect(() => {
     axiosSecure
-      .get(`/user-order?email=${user.email}`, { withCredentials: true })
+      .get(`/user-order?email=${user.email}`)
       .then((res) => setOrder(res?.data));
-    // axios
-    //   .get(`http://localhost:8080`)
   }, [user, axiosSecure]);
   function handleDeleteBtn(id) {
     axiosSecure.delete(`/user-order?id=${id}`).then(() => {
       const remaining = order.filter((item) => item._id !== id);
       setOrder(remaining);
     });
-    // fetch(`http://localhost:8080/user-order?id=${id}`, {
-    //   method: "DELETE",
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     const remaining = order.filter((item) => item._id !== id);
-    //     setOrder(remaining);
-    //     console.log(data);
-    //   });
-    // console.log(id);
   }
 
   return (

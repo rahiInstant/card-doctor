@@ -21,7 +21,7 @@ const Navbar = () => {
     { path: "/cart-details", name: "My order", id: 4 },
   ];
 
-  console.log('from navbar',useAuth())
+  // console.log('from navbar',useAuth())
 
 
   useEffect(() => {
@@ -49,6 +49,9 @@ const Navbar = () => {
     setTheme(getItem().theme);
   }
   function handleLogOut() {
+
+    
+
     logOut()
       .then(() => {
         successMsg("Log Out successfully.");

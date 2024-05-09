@@ -1,21 +1,21 @@
 import axios from "axios";
 import { useEffect } from "react";
 import useAuth from "./useAuth";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "https://cbd-ten.vercel.app",
   withCredentials: true,
 });
 
 const useAxiosSecure = () => {
-  const something = useAuth()
-  const logOut = something?.logOut
-
+  const something = useAuth();
+  const logOut = something?.logOut;
 
   useEffect(() => {
-    axiosSecure.interceptors.response.use( 
+    axiosSecure.interceptors.response.use(
       (res) => {
-        console.log("correct response");
+        // console.log("correct response");
         return res;
       },
       (err) => {
@@ -23,7 +23,7 @@ const useAxiosSecure = () => {
         if (err.response?.status === 401 || err.response?.status === 403) {
           logOut()
             .then(() => {
-              // navigate("/login");
+              <Navigate to="/login"></Navigate>;
             })
             .catch(() => "");
         }
@@ -35,3 +35,5 @@ const useAxiosSecure = () => {
 };
 
 export default useAxiosSecure;
+
+// https://car-engin.web.app
